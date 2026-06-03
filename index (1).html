@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rogers Renovation & Construction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0D2340;
+    --blue:   #1A3F6F;
+    --mid:    #2560A8;
+    --sky:    #4E8FD4;
+    --light:  #D6E8F7;
+    --cream:  #F7F5F0;
+    --white:  #FFFFFF;
+    --text:   #1A1A2E;
+    --muted:  #5A6A7E;
+    --gold:   #C8943A;
+    --border: #D1DDE8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    background: rgba(13,35,64,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .nav-logo span { display: block; font-size: 0.65rem; letter-spacing: 0.18em; color: var(--gold); font-family: 'DM Sans', sans-serif; font-weight: 500; text-transform: uppercase; }
+
+  nav ul { display: flex; list-style: none; gap: 2.5rem; }
+  nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; font-weight: 400; letter-spacing: 0.03em; transition: color 0.2s; }
+  nav a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 0.45rem 1.25rem;
+    border-radius: 4px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #d9a045 !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 72px 5% 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -5%;
+    width: 55%;
+    height: 120%;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--mid) 100%);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 0.45;
+  }
+
+  .hero-text {
+    position: relative; z-index: 2;
+    padding-right: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    color: var(--white);
+    line-height: 1.12;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  h1 em { font-style: normal; color: var(--sky); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.62);
+    max-width: 420px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #d9a045; transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.28);
+    color: rgba(255,255,255,0.8);
+    padding: 0.8rem 1.75rem;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.65); color: var(--white); }
+
+  .hero-stats {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    gap: 1.5rem;
+    padding-left: 3rem;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--cream);
+    padding: 6rem 5%;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--mid);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--navy);
+    margin-bottom: 3rem;
+    max-width: 480px;
+    line-height: 1.25;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--mid);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { border-color: var(--sky); transform: translateY(-3px); }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.1rem;
+    font-size: 1.3rem;
+  }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .service-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── PROCESS ── */
+  .process {
+    background: var(--navy);
+    padding: 6rem 5%;
+    color: var(--white);
+  }
+
+  .process .section-label { color: var(--gold); }
+  .process .section-label::before { background: var(--gold); }
+  .process .section-title { color: var(--white); max-width: 100%; }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 10%; right: 10%;
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .step { text-align: center; padding: 0 1.5rem; }
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+  .step h4 {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+  }
+  .step p { font-size: 0.825rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  /* ── FORM SECTION ── */
+  #quote {
+    padding: 6rem 5%;
+    background: var(--white);
+  }
+
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .form-sidebar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .form-sidebar p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; }
+
+  .trust-items { display: flex; flex-direction: column; gap: 0.85rem; }
+  .trust-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+  .trust-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* form styles */
+  .quote-form {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .form-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+  .form-header p { font-size: 0.825rem; color: var(--muted); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  label { font-size: 0.8rem; font-weight: 500; color: var(--navy); letter-spacing: 0.02em; }
+  label .req { color: var(--gold); margin-left: 2px; }
+
+  input, select, textarea {
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--mid);
+    box-shadow: 0 0 0 3px rgba(37,96,168,0.1);
+  }
+  select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6A7E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2.5rem; }
+  textarea { resize: vertical; min-height: 110px; }
+  ::placeholder { color: #9aaabf; }
+
+  .form-divider {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin: 1.5rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .form-divider::before, .form-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { background: var(--blue); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .form-note {
+    text-align: center;
+    font-size: 0.775rem;
+    color: var(--muted);
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* success state */
+  .success-message {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: #e8f5e9;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+  }
+  .success-message h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+  .success-message p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    padding: 3rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  footer p { font-size: 0.8rem; }
+  .footer-contact { text-align: right; font-size: 0.85rem; line-height: 1.9; }
+  .footer-contact a { color: var(--sky); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text > * {
+    animation: fadeUp 0.65s ease both;
+  }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  h1 { animation-delay: 0.22s; }
+  .hero-sub { animation-delay: 0.34s; }
+  .hero-btns { animation-delay: 0.46s; }
+  .hero-stats { animation: fadeUp 0.65s 0.5s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-bottom: 4rem; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: auto; padding-left: 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2.5rem; margin-top: 2rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .form-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    Rogers Renovation
+    <span>&amp; Construction</span>
+  </div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#quote" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Licensed Contractor — Southern California</p>
+    <h1>Quality Work,<br><em>Built to Last.</em></h1>
+    <p class="hero-sub">From kitchen remodels to full renovations — we bring craftsmanship, honesty, and reliability to every project in the Hemet area and beyond.</p>
+    <div class="hero-btns">
+      <a href="#quote" class="btn-primary">Request a Free Quote</a>
+      <a href="#services" class="btn-ghost">See Our Work</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5★</div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="section-label">What We Do</p>
+  <h2 class="section-title">Expert Renovation &amp; Construction Services</h2>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <h3>Kitchen Remodels</h3>
+      <p>Full kitchen renovations including cabinets, countertops, flooring, and fixtures — designed to your vision.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚿</div>
+      <h3>Bathroom Remodels</h3>
+      <p>Tile work, vanities, showers, and full bathroom overhauls done right the first time.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🪟</div>
+      <h3>Room Additions</h3>
+      <p>Expand your living space with additions built to code, on time, and on budget.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <h3>Decks &amp; Patios</h3>
+      <p>Custom outdoor decks, concrete patios, pergolas, and fencing that enhance your property.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔨</div>
+      <h3>General Contracting</h3>
+      <p>Drywall, flooring, painting, repairs, and everything in between — no job too big or too small.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Repairs &amp; Handyman</h3>
+      <p>Quick, reliable repairs for doors, windows, fences, roofing, and more around the home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <p class="section-label">How It Works</p>
+  <h2 class="section-title">Simple, Transparent Process</h2>
+
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Submit Your Request</h4>
+      <p>Fill out our quick form with your project details and contact info.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>We'll Reach Out</h4>
+      <p>Expect a call or email within 24 hours to discuss your project.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Free On-Site Quote</h4>
+      <p>We visit the job site and provide a detailed, transparent written estimate.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Work Begins</h4>
+      <p>Once you approve, we schedule and get to work — on time and on budget.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section id="quote">
+  <div class="form-layout">
+    <div class="form-sidebar">
+      <p class="section-label">Get Started</p>
+      <h2>Request a Free Quote</h2>
+      <p>Fill out the form and we'll follow up within 24 hours to discuss your project and arrange a free on-site estimate.</p>
+
+      <div class="trust-items">
+        <div class="trust-item"><span class="trust-dot"></span><span>No obligation — quotes are always free</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span>Licensed &amp; insured contractor</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span>Detailed written estimates, no surprises</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span>We serve Hemet, Murrieta, and surrounding areas</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span>Family-owned and operated</span></div>
+      </div>
+    </div>
+
+    <div class="quote-form">
+      <div id="form-content">
+        <div class="form-header">
+          <h3>Project Request Form</h3>
+          <p>All fields marked with * are required</p>
+        </div>
+
+        <form id="leadForm" novalidate>
+          <p class="form-divider">Your Contact Info</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" name="firstName" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="(951) 555-0100" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@email.com">
+            </div>
+          </div>
+
+          <p class="form-divider">Project Details</p>
+
+          <div class="form-group">
+            <label for="jobType">Type of Work <span class="req">*</span></label>
+            <select id="jobType" name="jobType" required>
+              <option value="" disabled selected>Select a project type...</option>
+              <option>Kitchen Remodel</option>
+              <option>Bathroom Remodel</option>
+              <option>Room Addition</option>
+              <option>Deck / Patio</option>
+              <option>Flooring</option>
+              <option>Roofing Repair</option>
+              <option>Fence Installation</option>
+              <option>Painting (Interior)</option>
+              <option>Painting (Exterior)</option>
+              <option>General Handyman / Repairs</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="jobAddress">Job Site Address <span class="req">*</span></label>
+            <input type="text" id="jobAddress" name="jobAddress" placeholder="123 Main St, Hemet, CA" required>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Project Description <span class="req">*</span></label>
+            <textarea id="description" name="description" placeholder="Describe the work you need done. The more detail, the better! (e.g. We want to remodel our master bath — demo existing tile, install new shower, new vanity, and repaint.)" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="startDate">Preferred Start Date</label>
+              <input type="date" id="startDate" name="startDate">
+            </div>
+            <div class="form-group">
+              <label for="budget">Budget Range</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select a range...</option>
+                <option>Under $1,000</option>
+                <option>$1,000 – $5,000</option>
+                <option>$5,000 – $15,000</option>
+                <option>$15,000 – $30,000</option>
+                <option>$30,000+</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="heardAbout">How Did You Hear About Us?</label>
+            <select id="heardAbout" name="heardAbout">
+              <option value="" disabled selected>Select one...</option>
+              <option>Google Search</option>
+              <option>Google Maps</option>
+              <option>Yelp</option>
+              <option>Nextdoor</option>
+              <option>Facebook</option>
+              <option>Instagram</option>
+              <option>Friend / Family Referral</option>
+              <option>Drove by / Saw our work</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit My Project Request →</button>
+          <p class="form-note">We'll follow up within 24 hours by phone or email. Your info is never shared or sold.</p>
+        </form>
+      </div>
+
+      <div class="success-message" id="successMsg">
+        <div class="success-icon">✓</div>
+        <h3>Request Received!</h3>
+        <p>Thank you for reaching out. We'll review your project details and follow up within 24 hours by phone or email.<br><br>We look forward to working with you!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p class="footer-brand">Rogers Renovation &amp; Construction</p>
+    <p>Serving Hemet, Murrieta &amp; surrounding areas &nbsp;|&nbsp; Lic# [Your License #]</p>
+  </div>
+  <div class="footer-contact">
+    <a href="tel:+19515550000">(951) 555-0000</a><br>
+    <a href="mailto:info@rogersrenovation.com">info@rogersrenovation.com</a><br>
+    © 2024 Rogers Renovation &amp; Construction
+  </div>
+</footer>
+
+<script>
+document.getElementById('leadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const required = this.querySelectorAll('[required]');
+  let valid = true;
+  required.forEach(field => {
+    field.style.borderColor = '';
+    if (!field.value.trim()) {
+      field.style.borderColor = '#e24b4a';
+      valid = false;
+    }
+  });
+  if (!valid) {
+    const first = this.querySelector('[required][style*="e24b4a"]');
+    if (first) first.focus();
+    return;
+  }
+
+  const data = {
+    firstName:   document.getElementById('firstName').value,
+    lastName:    document.getElementById('lastName').value,
+    phone:       document.getElementById('phone').value,
+    email:       document.getElementById('email').value,
+    jobType:     document.getElementById('jobType').value,
+    jobAddress:  document.getElementById('jobAddress').value,
+    description: document.getElementById('description').value,
+    startDate:   document.getElementById('startDate').value,
+    budget:      document.getElementById('budget').value,
+    heardAbout:  document.getElementById('heardAbout').value,
+  };
+
+  console.log('New Lead Submission:', data);
+
+  document.getElementById('form-content').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+
+  /*
+  ┌─────────────────────────────────────────────────────────────┐
+  │  TO CONNECT THIS FORM TO YOUR HUSBAND'S EMAIL:             │
+  │                                                             │
+  │  Option A – Formspree (free, easiest):                     │
+  │    1. Go to formspree.io and create a free account         │
+  │    2. Create a new form, get your endpoint URL             │
+  │    3. Replace the form tag above with:                     │
+  │       <form action="https://formspree.io/f/YOUR_ID"        │
+  │             method="POST">                                  │
+  │    → Formspree emails every submission to you!             │
+  │                                                             │
+  │  Option B – EmailJS (free, no backend):                    │
+  │    1. Go to emailjs.com                                     │
+  │    2. Connect your Gmail                                    │
+  │    3. Use emailjs.send() here instead of console.log()     │
+  └─────────────────────────────────────────────────────────────┘
+  */
+});
+</script>
+
+</body>
+</html>
